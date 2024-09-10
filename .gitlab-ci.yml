@@ -1,0 +1,62 @@
+stages:
+  - dev
+  - test
+  - main
+before_script:
+    - pwd
+    - hostname
+    - ip a
+    - id
+    - echo $PATH
+dev:
+  stage: dev
+  tags:
+    - 1djr
+  variables:
+    GIT_STRATEGY: clone
+  script:
+    - echo "===========deploy to dev server=================="
+    - nvm use 16
+    - npm install
+    - npm run build
+    - rsync -av -e 'ssh -p 22'  --delete ./dist ec2-user@13.229.136.128:/home/wwwroot/h5
+    - curl -X POST "https://api.telegram.org/bot6167216779:AAGW7t0tkEKNFgAL9Q7hXe_tn7T2DZ03N1w/sendMessage" -d "chat_id=-981388538&&text=1djr pc28 h5 web dev 分支 开发环境已更新   '触发者':$GITLAB_USER_NAME      '提交信息':$CI_COMMIT_MESSAGE"
+  only:
+    refs:
+      - dev
+
+uat:
+  stage: test
+  tags:
+    - 1djr
+  variables:
+    GIT_STRATEGY: clone
+  script:
+    - echo "===========deploy to Test=================="
+    - nvm use 16
+    - npm install
+    - npm run build
+    - rsync -av -e 'ssh -p 22'  --delete ./dist ec2-user@13.229.136.128:/home/wwwroot/h5
+    - curl -X POST "https://api.telegram.org/bot6167216779:AAGW7t0tkEKNFgAL9Q7hXe_tn7T2DZ03N1w/sendMessage" -d "chat_id=-900527324&&text= 1djr 测试环境-pc28h5 h5 web test分支已更新   '触发者':$GITLAB_USER_NAME      '提交信息':$CI_COMMIT_MESSAGE"
+  only:
+    refs:
+      - test
+
+
+prod:
+  stage: main
+  tags:
+    - 1djr
+  variables:
+    GIT_STRATEGY: clone
+  script:
+    - echo "===========deploy to Test=================="
+    - nvm use 16
+    - npm install
+    - npm run build
+    - rsync -av -e 'ssh -p 22'  --delete ./dist ec2-user@3.34.230.27:/home/wwwroot/h5
+    - curl -X POST "https://api.telegram.org/bot6167216779:AAGW7t0tkEKNFgAL9Q7hXe_tn7T2DZ03N1w/sendMessage" -d "chat_id=-900527324&&text= 1djr 生产环境-pc28h5 h5 web main分支已更新   '触发者':$GITLAB_USER_NAME      '提交信息':$CI_COMMIT_MESSAGE"
+  only:
+    refs:
+      - main
+
