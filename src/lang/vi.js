@@ -173,4 +173,12 @@ export default {
   158: 'Nhận xét',
   159: 'Tên',
   162: 'dịch vụ khách hàng',
+
+  163: 'Bảo hiểm',
+ 164: 'Chuyển đổi quỹ',
+ 165: 'Mua hàng',
+ 166: 'Cân bằng',
+ 167: 'Xin vui lòng nhập số tiền',
+ 168: 'Không đủ số dư',
+ 169: 'Thao tác thành công',
 };

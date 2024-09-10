@@ -8,7 +8,7 @@ module.exports = defineConfig({
   devServer: {
     proxy: {
       "/api": {
-        target: "https://www.streamiing.cc/",
+        target: "https://www.set-delta.com/",
         changeOrigin: true,
         logLevel: "debug",
         // pathRewrite: {

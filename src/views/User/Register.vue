@@ -14,7 +14,7 @@
             :placeholder="_t('140')" />
         <van-field class="item" clearable :type="'password'" v-model="form.password2" label="" left-icon="lock"
             :placeholder="_t('147')" />
-        <van-field class="item" clearable v-model="form.invite_code" label="" left-icon="friends-o" :placeholder="_t('151')" />
+        <!-- <van-field class="item" clearable v-model="form.invite_code" label="" left-icon="friends-o" :placeholder="_t('151')" /> -->
         
         <van-button class="item btn" type="primary" block @click="register"
             :style="{ 'opacity': loading ? '0.5' : '1' }">{{ _t('149') }}</van-button>
@@ -35,7 +35,7 @@ const form = ref({
     username: '',
     password: '',
     password2: '',
-    invite_code: ''
+    // invite_code: ''
 })
 
 const loading = ref(false)

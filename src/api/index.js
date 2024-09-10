@@ -25,6 +25,12 @@ class HttpService {
       params,
     })
   }
+  product(params) { // 保险列表
+    return http('/index/product', {
+      method: 'get',
+      params,
+    })
+  }
   userIndex(params) { // 个人中心
     return http('/user/index', {
       method: 'get',
@@ -111,6 +117,18 @@ class HttpService {
   }
   trade_contract(data) { // 首页数据
     return http('/index/trade_contract', {
+      method: 'post',
+      data,
+    })
+  }
+  carousel(data) { // 轮播图
+    return http('/index/carousel', {
+      method: 'post',
+      data,
+    })
+  }
+  fund_transfer(data) { // 资金划转
+    return http('/user/fund_transfer', {
       method: 'post',
       data,
     })

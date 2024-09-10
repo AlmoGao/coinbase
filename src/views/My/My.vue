@@ -91,6 +91,9 @@
                 <div class="name">{{_t('91')}}</div>
                 <!-- <van-icon name="arrow" /> -->
             </div>
+            <div class="nav" @click="jump('insurance')">
+                <div class="name">{{_t('164')}}</div>
+            </div>
             <div class="nav" @click="loginout">
                 <div class="name">{{_t('118')}}</div>
             </div>
@@ -144,7 +147,7 @@ const goCode = () => {
     color: #858ea1;
 
     .user-box {
-        color: #000;
+        color: #956969;
         font-size: 4.2vw;
         text-align: center;
         font-weight: bold;

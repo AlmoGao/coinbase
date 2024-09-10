@@ -20,6 +20,16 @@ api.indexIndex().then(res => {
   store.commit('setServer', res.online_service)
   store.commit('setContract', res.contract)
 })
+api.product().then(res => {
+  if (!res) return
+  const arr = []
+  res.map(item => {
+    if (item.balance > 0) {
+      arr.push(item)
+    }
+  })
+  store.commit('setProducts', arr)
+})
 
 
 onMounted(() => {

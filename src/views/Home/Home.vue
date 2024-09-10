@@ -74,10 +74,17 @@ import router from '@/router'
 import b1 from '@/assets/b1.jpg'
 import b2 from '@/assets/b2.jpg'
 import b3 from '@/assets/b3.jpg'
+import http from "@/api/index"
 
-const images = [
+const images = ref([
 b1,b2,b3
-]
+])
+
+http.carousel({type: 0}).then(res => {
+    if (res && res.length) {
+        images.value = res
+    }
+})
 
 const flagMap = {
     'CNY': cnFlag,

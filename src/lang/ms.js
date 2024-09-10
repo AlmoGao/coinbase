@@ -173,4 +173,12 @@ export default {
   158: 'Catatan',
   159: 'Nama',
   162: 'khidmat Pelanggan',
+
+  163: 'Insurans',
+ 164: 'Penukaran Dana',
+ 165: 'Beli',
+ 166: 'Imbangan',
+ 167: 'Sila masukkan jumlah',
+ 168: 'Baki tidak mencukupi',
+ 169: 'Operasi berjaya',
 };

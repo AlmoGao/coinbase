@@ -173,4 +173,12 @@ export default {
      158: 'Remark',
      159: 'Name',
      162: 'customer service',
+
+     163: 'Insurance',
+    164: 'Fund conversion',
+    165: 'Purchase',
+    166: 'Balance',
+    167: 'Please enter the amount',
+    168: 'Insufficient balance',
+    169: 'Operation successful',
 }

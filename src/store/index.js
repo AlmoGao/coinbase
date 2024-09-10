@@ -10,6 +10,7 @@ export default createStore({
     server: '',
     homeData: {},
     contract: [],
+    products: [],
   },
   mutations: {
     setToken(state, val) {
@@ -26,6 +27,9 @@ export default createStore({
     },
     setHomeData(state, val) {
       state.homeData = val
+    },
+    setProducts(state, val) {
+      state.products = val
     },
     setContract(state, val) {
       state.contract = val
