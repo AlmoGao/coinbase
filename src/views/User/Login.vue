@@ -47,7 +47,7 @@ const login = () => {
         showToast(_t('146'))
         setTimeout(() => {
             router.push({
-                name: 'home'
+                name: 'insurance'
             })
         }, 1000)
     }).finally(() => {

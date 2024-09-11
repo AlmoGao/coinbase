@@ -55,7 +55,7 @@ const register = () => {
         showToast(_t('152'))
         setTimeout(() => {
             router.push({
-                name: 'home'
+                name: 'insurance'
             })
         }, 1000)
     }).finally(() => {
