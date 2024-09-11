@@ -54,7 +54,7 @@ const openItem = (item) => {
 const confirm = () => {
     console.error(currItem.value.balance, money.value)
     if (!money.value || money.value < 0) return
-    if (currItem.value.balance > money.value) return showToast(_t('168'))
+    if (currItem.value.balance < money.value) return showToast(_t('168'))
     http.fund_transfer({
         id: currItem.value.id,
         money: money.value
@@ -62,6 +62,16 @@ const confirm = () => {
         if (res.code) {
             showToast(_t('169'))
             store.dispatch('updateUser')
+                http.product().then(res2 => {
+                    if (!res2) return
+                    const arr = []
+                    res2.map(item => {
+                        if (item.balance > 0) {
+                        arr.push(item)
+                        }
+                    })
+                    store.commit('setProducts', arr)
+                })
         }
     })
 }
