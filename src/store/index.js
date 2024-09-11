@@ -38,7 +38,7 @@ export default createStore({
   actions: {
     updateUser({ commit }) {
       api.userIndex().then(res => {
-        console.error('个人数据', res)
+        // console.error('个人数据', res)
         commit('setUserInfo', res)
       })
     },

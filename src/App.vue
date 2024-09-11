@@ -8,6 +8,7 @@ import api from '@/api'
 import store from './store';
 import i18n from '@/lang'
 
+
 api.get_user_lang().then(res => {
   const l = res.lang || 'th'
   i18n.global.locale = l
@@ -22,13 +23,13 @@ api.indexIndex().then(res => {
 })
 api.product().then(res => {
   if (!res) return
-  const arr = []
-  res.map(item => {
-    if (item.balance > 0) {
-      arr.push(item)
-    }
-  })
-  store.commit('setProducts', arr)
+  // const arr = []
+  // res.map(item => {
+  //   if (item.balance > 0) {
+  //     arr.push(item)
+  //   }
+  // })
+  store.commit('setProducts', res || [])
 })
 
 
@@ -44,6 +45,8 @@ onMounted(() => {
     document.documentElement.style.setProperty('--vw', `${vw}px`)
   })
 })
+
+
 
 </script>
 

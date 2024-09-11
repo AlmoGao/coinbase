@@ -48,14 +48,15 @@ const show = ref(false)
 const currItem = ref({})
 const money = ref('')
 const openItem = (item) => {
+    money.value = ''
     currItem.value = item
     show.value = true
 }
 const confirm = () => {
     console.error(currItem.value.balance, money.value)
     if (!money.value || money.value < 0) return
-    if (currItem.value.balance < money.value) return showToast(_t('168'))
-    http.fund_transfer({
+    if (userInfo.value.money < money.value) return showToast(_t('168'))
+    http.buy_product({
         id: currItem.value.id,
         money: money.value
     }).then(res => {
@@ -64,13 +65,7 @@ const confirm = () => {
             store.dispatch('updateUser')
                 http.product().then(res2 => {
                     if (!res2) return
-                    const arr = []
-                    res2.map(item => {
-                        if (item.balance > 0) {
-                        arr.push(item)
-                        }
-                    })
-                    store.commit('setProducts', arr)
+                    store.commit('setProducts', res2 || [])
                 })
         }
     })

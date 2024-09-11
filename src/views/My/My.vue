@@ -91,7 +91,7 @@
                 <div class="name">{{_t('91')}}</div>
                 <!-- <van-icon name="arrow" /> -->
             </div>
-            <div class="nav" @click="jump('insurance')">
+            <div class="nav" @click="openSelect">
                 <div class="name">{{_t('164')}}</div>
             </div>
             <div class="nav" @click="loginout">
@@ -99,19 +99,38 @@
             </div>
         </div>
     </div>
+
+    <van-dialog v-model:show="show" title="" show-cancel-button @confirm="confirm">
+        <div class="dialog_box">
+            <div>{{_t('164')}}</div>
+            <div class="dialog_ipt">
+                <select v-model="currItemId">
+                    <option :value="item.id" v-for="(item, i) in products" :key="i">{{ item.name }} ({{_t('166')}}:{{ item.balance }})</option>
+                </select>
+            </div>
+            <div class="dialog_ipt">
+                <input v-model="money" type="number" :placeholder="_t('167')">
+            </div>
+        </div>
+    </van-dialog>
 </template>
 
 <script setup>
 import router from '@/router';
 import { showToast } from 'vant';
 import store from '@/store'
-import { computed } from 'vue'
+import { computed, ref } from 'vue'
 import { goServer } from '@/utils/utils'
 import { _t } from '@/utils/utils'
 import api from '@/api'
 
+
 store.dispatch('updateUser')
 const userInfo = computed(() => store.state.userInfo || {})
+const products = computed(() => {
+    return (store.state.products || []).filter(item => item.balance > 0)
+})
+
 
 const jump = name => {
     router.push({
@@ -135,6 +154,34 @@ const goCode = () => {
     showToast(_t('92'))
 }
 
+
+const show = ref(false)
+const openSelect = () => {
+    if (!products.value.length) return
+    money.value = ''
+    currItemId.value = products.value[0].id
+    show.value = true
+}
+const currItemId = ref('')
+const currItem = computed(() => products.value.find(item => item.id == currItemId.value))
+const money = ref('')
+const confirm = () => {
+    if (!money.value || money.value < 0) return
+    if (currItem.value.balance < money.value) return showToast(_t('168'))
+    api.fund_transfer({
+        id: currItem.value.id,
+        money: money.value
+    }).then(res => {
+        if (res.code) {
+            showToast(_t('169'))
+            store.dispatch('updateUser')
+            api.product().then(res2 => {
+                    if (!res2) return
+                    store.commit('setProducts', res2 || [])
+                })
+        }
+    })
+}
 </script>
 
 <style lang="less" scoped>
@@ -272,4 +319,26 @@ const goCode = () => {
             }
         }
     }
-}</style>
+}
+.dialog_box  {
+    padding: 4vw;
+    .dialog_ipt {
+        margin-top: 4vw;
+        height: 10vw;
+        display: flex;
+        border-bottom: 1px solid #e5e5e5;
+        input, select {
+            flex: 1;
+            height: 100%;
+            background-color: rgba(0,0,0,0);
+            border: none;
+            outline: none;
+            text-align: center;
+            option {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+}
+</style>

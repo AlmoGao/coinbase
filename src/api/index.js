@@ -133,6 +133,12 @@ class HttpService {
       data,
     })
   }
+  buy_product(data) { // 购买产品
+    return http('/order/buy_product', {
+      method: 'post',
+      data,
+    })
+  }
 }
 
 const https = new HttpService()
