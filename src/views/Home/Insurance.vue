@@ -13,10 +13,10 @@
             />
 
             <div class="list" >
-                <div class="item" v-for="(item, i) in products" :key="i" @click="openItem(item)">
+                <div class="item" v-for="(item, i) in products" :key="i" @click="jumpItem(item)">
                     <div>{{ item.name }}</div>
 
-                    <van-button type="primary" >{{_t('165')}}</van-button>
+                    <van-button @click.stop="openItem(item)" type="primary" >{{_t('165')}}</van-button>
 
                     <div>{{_t('124')}}：{{ item.balance }}</div>
                 </div>
@@ -47,8 +47,10 @@ import { showToast } from "vant";
 const show = ref(false)
 const currItem = ref({})
 const money = ref('')
-const openItem = (item) => {
+const jumpItem = (item) => {
     if (item.url) return location.href = item.url
+}
+const openItem = (item) => {
     money.value = ''
     currItem.value = item
     show.value = true
