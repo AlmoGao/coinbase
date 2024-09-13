@@ -48,7 +48,7 @@ const show = ref(false)
 const currItem = ref({})
 const money = ref('')
 const openItem = (item) => {
-    if (item.url) return window.open(item.url)
+    if (item.url) return location.href = item.url
     money.value = ''
     currItem.value = item
     show.value = true
