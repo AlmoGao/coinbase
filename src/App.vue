@@ -44,6 +44,10 @@ onMounted(() => {
     let vw = window.innerWidth * 0.01
     document.documentElement.style.setProperty('--vw', `${vw}px`)
   })
+ // 禁止双击
+  document.addEventListener('dblclick', function (event) {
+  event.preventDefault();
+}, { passive: false });
 })
 
 
@@ -61,6 +65,7 @@ body {
   margin: 0;
   padding: 0;
   width: 100%;
+  touch-action: manipulation;
   // max-width: 600px;
   // margin: 0 auto;
 }

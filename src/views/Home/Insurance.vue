@@ -12,11 +12,11 @@
             :text="bulletin"
             />
 
-            <div class="list">
+            <div class="list" @click="openItem(item)">
                 <div class="item" v-for="(item, i) in products" :key="i">
                     <div>{{ item.name }}</div>
 
-                    <van-button type="primary" @click="openItem(item)">{{_t('165')}}</van-button>
+                    <van-button type="primary" >{{_t('165')}}</van-button>
 
                     <div>{{_t('124')}}：{{ item.balance }}</div>
                 </div>
