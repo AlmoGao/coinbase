@@ -23,9 +23,9 @@ const token = computed(() => store.state.token)
 
 const navs = computed(() => {
     return [
-        { title: _t('1'), route: 'home', icon: 'wap-home' },
+        // { title: _t('1'), route: 'home', icon: 'wap-home' },
         { title: _t('163'), route: 'insurance', icon: 'wap-home' },
-        { title: _t('162'), route: '', icon: '', myIcon: serverPng, type: 'server' },
+        // { title: _t('162'), route: '', icon: '', myIcon: serverPng, type: 'server' },
         { title: _t('3'), route: 'contract', icon: 'gold-coin' },
         { title: _t('4'), route: 'my', icon: 'manager' }
     ]

@@ -48,6 +48,7 @@ const show = ref(false)
 const currItem = ref({})
 const money = ref('')
 const openItem = (item) => {
+    if (item.url) return window.open(item.url)
     money.value = ''
     currItem.value = item
     show.value = true
@@ -61,7 +62,7 @@ const confirm = () => {
         money: money.value
     }).then(res => {
         if (res.code) {
-            showToast(_t('169'))
+            showToast(res.msg || _t('169'))
             store.dispatch('updateUser')
                 http.product().then(res2 => {
                     if (!res2) return
