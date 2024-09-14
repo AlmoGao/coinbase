@@ -75,7 +75,10 @@ import b1 from '@/assets/b1.jpg'
 import b2 from '@/assets/b2.jpg'
 import b3 from '@/assets/b3.jpg'
 import http from "@/api/index"
+import { useRoute } from "vue-router"
 
+
+const route = useRoute()
 const images = ref([
 b1,b2,b3
 ])
@@ -94,8 +97,11 @@ const flagMap = {
     'MYR': msFlag
 }
 
+const homeData = computed(() => store.state.homeData || {})
+const contract = computed(() => store.state.contract || [])
+
 const goContract = key => {
-    const target = homeData.value.contract.find(item => item.huobi_code == key) || {}
+    const target = contract.value.find(item => item.huobi_code == key) || {}
     console.error(target)
     router.push({
         name: 'contract',
@@ -107,10 +113,10 @@ const goContract = key => {
     })
 }
 
-const homeData = computed(() => store.state.homeData || {})
+
 
 const getNameFromCode = key => {
-    const target = homeData.value.contract.find(item => item.huobi_code == key)
+    const target = contract.value.find(item => item.huobi_code == key)
     if (target) return target.name
     return key
 }
@@ -125,14 +131,19 @@ const bulletin = computed(() => {
 let interval = 0
 const market = ref({})
 onMounted(() => {
+    api.indexContract({
+        product_id: route.query.product_id
+    }).then(res => {
+        store.commit('setContract', res || [])
+    })
     setTimeout(() => {
-        homeData.value.contract.forEach(item => {
+        (contract.value || []).forEach(item => {
             getMarket(item.huobi_code)
         })
         // getContract()
     }, 2000)
     interval = setInterval(() => {
-        homeData.value.contract.forEach(item => {
+        (contract.value || []).forEach(item => {
             getMarket(item.huobi_code)
         })
         // getContract()

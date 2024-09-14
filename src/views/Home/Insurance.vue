@@ -43,12 +43,19 @@ import store from '@/store'
 import http from "@/api/index"
 import { _t } from '@/utils/utils'
 import { showToast } from "vant";
+import router from '@/router'
 
 const show = ref(false)
 const currItem = ref({})
 const money = ref('')
 const jumpItem = (item) => {
-    if (item.url) return location.href = item.url
+    // if (item.url) return location.href = item.url
+    router.push({
+        name: 'home',
+        query: {
+            product_id: item.id
+        }
+    })
 }
 const openItem = (item) => {
     money.value = ''
@@ -56,7 +63,6 @@ const openItem = (item) => {
     show.value = true
 }
 const confirm = () => {
-    console.error(currItem.value.balance, money.value)
     if (!money.value || money.value < 0) return
     if (userInfo.value.money < money.value) return showToast(_t('168'))
     http.buy_product({

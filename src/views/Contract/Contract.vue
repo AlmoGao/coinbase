@@ -54,7 +54,7 @@ const tab = ref(1) // 1-交易 2-持仓
 const contract = computed(() => {
     return (store.state.contract || []).map(item => {
         item.text = item.name
-        item.value = item.huobi_code.toUpperCase()
+        item.value = item.huobi_code
         return item
     })
 })
@@ -67,8 +67,9 @@ const chart = ref({})
 // 币种
 const buy_money = ref(0) // 当前价格
 const coin = ref('btcusdt')
+console.error(contract.value)
 if (contract.value[0]) {
-    coin.value = contract.value[0].value
+    coin.value = contract.value[0].huobi_code
 }
 if (route.query.contract_name) coin.value = route.query.contract_name
 
@@ -151,6 +152,13 @@ const initWS = (key = 'btcusdt', t = '5min') => {
                     }
                 }).reverse();
                 buy_money.value = klineData[klineData.length - 1].close
+                let num = 2
+                try {
+                    num = buy_money.value.toString().split('.')[1].length || 0
+                } catch {
+                    num = 2
+                }
+                chart.value.setPriceVolumePrecision(num, 2)
                 chart.value.applyNewData(klineData)
             } else {
                 console.error('获取历史K线数据失败:', data);

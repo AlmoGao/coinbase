@@ -19,8 +19,9 @@ api.indexIndex().then(res => {
   if (!res) return
   store.commit('setHomeData', res)
   store.commit('setServer', res.online_service)
-  store.commit('setContract', res.contract)
+  // store.commit('setContract', res.contract)
 })
+
 api.product().then(res => {
   if (!res) return
   // const arr = []

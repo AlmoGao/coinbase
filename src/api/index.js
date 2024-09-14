@@ -25,6 +25,12 @@ class HttpService {
       params,
     })
   }
+  indexContract(params) { // 首页列表数据
+    return http('/index/contract', {
+      method: 'get',
+      params,
+    })
+  }
   product(params) { // 保险列表
     return http('/index/product', {
       method: 'get',
