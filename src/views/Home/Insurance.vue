@@ -3,7 +3,7 @@
     <div class="page-ins">
         <van-swipe class="swiper" :autoplay="3000" lazy-render>
             <van-swipe-item v-for="image in images" :key="image">
-                <img class="swiper-item" :src="image" />
+                <img class="swiper-item" :src="image.image" />
             </van-swipe-item>
         </van-swipe>
         <van-notice-bar
@@ -83,9 +83,7 @@ const confirm = () => {
 
 const userInfo = computed(() => store.state.userInfo || {})
 
-const images = ref([
-b1,b2,b3
-])
+const images = ref([])
 
 http.carousel({type: 0}).then(res => {
     if (res && res.length) {

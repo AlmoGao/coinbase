@@ -79,7 +79,7 @@ const goLang = () => {
     max-width: 800px;
     margin: 0 auto;
     height: 100vh;
-    background-image: url('../../assets/bg.jpg');
+    background-image: url('../../assets/bg.png');
     background-size: 100% 100%;
     overflow-y: auto;
     padding-top: 10vh;

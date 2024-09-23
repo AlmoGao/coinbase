@@ -66,11 +66,6 @@
             <!-- <div class="nav" @click="jump('recharge')">
                 <div class="name">{{_t('86')}}</div>
             </div> -->
-            <div class="nav" @click="jump('walletInfo')">
-                <!-- <van-icon name="bill" class="icon" /> -->
-                <div class="name">{{_t('88')}}</div>
-                <!-- <van-icon name="arrow" /> -->
-            </div>
             <!-- <div class="nav" @click="jump('fundDetail')">
                 <van-icon name="todo-list" class="icon" />
                 <div class="name">基金明细</div>
@@ -187,7 +182,7 @@ const confirm = () => {
 <style lang="less" scoped>
 .page-my {
     height: 100vh;
-    background-image: url('../../assets/bg.jpg');
+    background-image: url('../../assets/bg.png');
     background-size: 100% 100%;
     padding: 12vw 0;
     overflow-y: auto;

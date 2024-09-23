@@ -50,12 +50,12 @@ const register = () => {
     api.register(form.value).then(res => {
         console.error(res)
         if (!res) return
-        store.commit('setUserInfo', res.userinfo)
-        store.commit('setToken', res.userinfo.token)
+        // store.commit('setUserInfo', res.userinfo)
+        // store.commit('setToken', res.userinfo.token)
         showToast(_t('152'))
         setTimeout(() => {
             router.push({
-                name: 'insurance'
+                name: 'login'
             })
         }, 1000)
     }).finally(() => {
@@ -85,7 +85,7 @@ const goLang = () => {
 }
 .page-login {
     height: 100vh;
-    background-image: url('../../assets/bg.jpg');
+    background-image: url('../../assets/bg.png');
     background-size: 100% 100%;
     overflow-y: auto;
     padding-top: 10vh;

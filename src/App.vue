@@ -102,7 +102,7 @@ input::placeholder, textarea::placeholder {
   width: 100%;
   min-height: 100vh;
   overflow-x: hidden;
-  background-image: url('./assets/bg.jpg');
+  background-image: url('./assets/bg2.png');
   background-size: cover;
   color: #333;
   font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, Helvetica, Segoe UI, Arial, Roboto, PingFang SC, miui, Hiragino Sans GB, Microsoft Yahei, sans-serif;
