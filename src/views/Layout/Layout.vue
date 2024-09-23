@@ -12,7 +12,7 @@ import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const bottomRoute = [ 'home', 'my', 'fund', 'insurance' ]
+const bottomRoute = [ 'home', 'my', 'fund', 'insurance', 'ad' ]
 const showBottom = computed(() => {
     return bottomRoute.includes(route.name)
 })
