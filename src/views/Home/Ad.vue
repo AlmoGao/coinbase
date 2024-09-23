@@ -1,7 +1,7 @@
 <!-- ad -->
  <template>
     <div class="page-ad">
-        <iframe style="width: 100%;height: 100%;" src="/js888.html" frameborder="0"></iframe>
+        <iframe style="width: 100%;height: 100%;" src="./js888.html" frameborder="0"></iframe>
     </div>
  </template>
 
