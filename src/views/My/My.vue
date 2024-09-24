@@ -120,6 +120,11 @@ import { _t } from '@/utils/utils'
 import api from '@/api'
 
 
+api.product().then(res2 => {
+    if (!res2) return
+    store.commit('setProducts', res2 || [])
+})
+
 store.dispatch('updateUser')
 const userInfo = computed(() => store.state.userInfo || {})
 const products = computed(() => {
