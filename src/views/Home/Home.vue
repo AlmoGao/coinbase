@@ -133,11 +133,11 @@ onMounted(() => {
     }).then(res => {
         store.commit('setContract', res || [])
         setTimeout(() => {
-        (contract.value || []).forEach(item => {
-            market.value[item.huobi_code] = {}
-            getMarket(item.huobi_code)
-        })
-    }, 200)
+            (contract.value || []).forEach(item => {
+                market.value[item.huobi_code] = {}
+                getMarket(item.huobi_code)
+            })
+        }, 2000)
     })
    
     interval = setInterval(() => {
