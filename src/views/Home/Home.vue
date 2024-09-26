@@ -131,10 +131,12 @@ onMounted(() => {
     api.indexContract({
         product_id: route.query.product_id
     }).then(res => {
-        store.commit('setContract', res || [])
+        store.commit('setContract', res || []);
+        (res || []).forEach(item => {
+            market.value[item.huobi_code] = {}
+        })
         setTimeout(() => {
             (contract.value || []).forEach(item => {
-                market.value[item.huobi_code] = {}
                 getMarket(item.huobi_code)
             })
         }, 2000)
