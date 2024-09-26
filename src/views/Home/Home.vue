@@ -96,11 +96,10 @@ const flagMap = {
 }
 
 const homeData = computed(() => store.state.homeData || {})
-const contract = computed(() => store.state.contract || [])
+const contract = computed(() => store.getters.getContract || [])
 
 const goContract = key => {
     const target = contract.value.find(item => item.huobi_code == key) || {}
-    console.error(target)
     router.push({
         name: 'contract',
         query: {
@@ -133,13 +132,14 @@ onMounted(() => {
         product_id: route.query.product_id
     }).then(res => {
         store.commit('setContract', res || [])
-    })
-    setTimeout(() => {
+        setTimeout(() => {
         (contract.value || []).forEach(item => {
+            market.value[item.huobi_code] = {}
             getMarket(item.huobi_code)
         })
-        // getContract()
-    }, 2000)
+    }, 200)
+    })
+   
     interval = setInterval(() => {
         (contract.value || []).forEach(item => {
             getMarket(item.huobi_code)

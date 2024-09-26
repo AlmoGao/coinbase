@@ -33,6 +33,7 @@ export default createStore({
     },
     setContract(state, val) {
       state.contract = val
+      console.error('---->', state.contract)
     },
   },
   actions: {
@@ -42,6 +43,9 @@ export default createStore({
         commit('setUserInfo', res)
       })
     },
+  },
+  getters: {
+    getContract: state => state.contract
   },
   plugins: [createPersistedState()]
 })
