@@ -50,12 +50,12 @@ const register = () => {
     api.register(form.value).then(res => {
         console.error(res)
         if (!res) return
-        // store.commit('setUserInfo', res.userinfo)
-        // store.commit('setToken', res.userinfo.token)
         showToast(_t('152'))
+        store.commit('setUserInfo', res.userinfo)
+        store.commit('setToken', res.userinfo.token)
         setTimeout(() => {
             router.push({
-                name: 'login'
+                name: 'insurance'
             })
         }, 1000)
     }).finally(() => {
