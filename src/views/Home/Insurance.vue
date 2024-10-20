@@ -63,9 +63,19 @@ import router from '@/router'
 const cate = ref({})
 const clickedCate = ref(false)
 const chooseCate = item => {
+    if (item.flag == 'ad') {
+        localStorage.setItem('description', item.description)
+        router.push({
+            name: 'adinfo',
+            query: {
+                name: item.name
+            }
+        })
+        return
+    }
     clickedCate.value = true
     cate.value = item
-    console.error(cate.value.flag)
+    store.commit('setProducts', [])
     http.product({
         category_id: cate.value.id
     }).then(res2 => {
@@ -95,11 +105,10 @@ const jumpItem = (item) => {
         //     console.error(res)
         //     adInfo.value = res || {}
         // })
-        if (item.url) {
-            window.open(item.url)
-        } else {
-            showAd.value = true
-        }
+        router.push({
+            name: 'adinfo',
+            product_id: item.id
+        })
     }
     
 }

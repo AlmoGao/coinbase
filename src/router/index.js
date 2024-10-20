@@ -95,6 +95,11 @@ const routes = [
         component: () => import('../views/Contract/Contract.vue')
       },
       {
+        path: '/adinfo',
+        name: 'adinfo',
+        component: () => import('../views/Home/AdInfo.vue')
+      },
+      {
         path: '/lang',
         name: 'lang',
         component: () => import('../views/My/Lang.vue')
