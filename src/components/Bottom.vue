@@ -38,11 +38,16 @@ const jump = item => {
     }
     let route = item.route
     router.push({
-            name: route,
-            query: {
-                title: item.title
-            }
-        })
+        name: route,
+        query: {
+            title: item.title,
+        }
+    })
+    if (item.route == 'insurance') {
+        setTimeout(() => {
+            location.reload()
+        }, 100)
+    }
 }
 </script>
 

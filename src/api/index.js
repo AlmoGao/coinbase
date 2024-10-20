@@ -37,6 +37,12 @@ class HttpService {
       params,
     })
   }
+  adinfo(params) { // 广告详情
+    return http('/index/product_info', {
+      method: 'get',
+      params,
+    })
+  }
   userIndex(params) { // 个人中心
     return http('/user/index', {
       method: 'get',

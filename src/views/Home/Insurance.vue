@@ -12,13 +12,21 @@
             :text="bulletin"
             />
 
-            <div class="list" >
+            <!-- 分类列表 -->
+             <div class="list" v-if="!clickedCate">
+                <div class="item" v-for="(item, i) in category" :key="i" @click="chooseCate(item)">
+                    <div style="text-align: center;width:100%">{{ item.name }}</div>
+                </div>
+             </div>
+
+            <!-- 产品列表 -->
+            <div class="list" v-if="clickedCate">
                 <div class="item" v-for="(item, i) in products" :key="i" @click="jumpItem(item)">
                     <div>{{ item.name }}</div>
 
-                    <van-button @click.stop="openItem(item)" type="primary" >{{_t('165')}}</van-button>
+                    <van-button v-if="cate.flag == 'trade_contract'" @click.stop="openItem(item)" type="primary" >{{_t('165')}}</van-button>
 
-                    <div>{{_t('124')}}：{{ item.balance }}</div>
+                    <div v-if="cate.flag == 'trade_contract'">{{_t('124')}}：{{ item.balance }}</div>
                 </div>
             </div>
     </div>
@@ -32,12 +40,17 @@
             </div>
         </div>
     </van-dialog>
+
+    <!-- 广告 -->
+    <van-dialog v-model:show="showAd" :title="adInfo.name" :show-cancel-button="false" >
+        <div class="dialog_box" v-html="adInfo.content"></div>
+    </van-dialog>
 </template>
 
 <script setup>
-import b1 from '@/assets/b1.jpg'
-import b2 from '@/assets/b2.jpg'
-import b3 from '@/assets/b3.jpg'
+// import b1 from '@/assets/b1.jpg'
+// import b2 from '@/assets/b2.jpg'
+// import b3 from '@/assets/b3.jpg'
 import { computed, ref } from 'vue'
 import store from '@/store'
 import http from "@/api/index"
@@ -45,17 +58,50 @@ import { _t } from '@/utils/utils'
 import { showToast } from "vant";
 import router from '@/router'
 
+
+// 分类
+const cate = ref({})
+const clickedCate = ref(false)
+const chooseCate = item => {
+    clickedCate.value = true
+    cate.value = item
+    console.error(cate.value.flag)
+    http.product({
+        category_id: cate.value.id
+    }).then(res2 => {
+        if (!res2) return
+        store.commit('setProducts', res2 || [])
+    })
+}
+
 const show = ref(false)
 const currItem = ref({})
 const money = ref('')
+const showAd = ref(false)
+const adInfo = ref({})
 const jumpItem = (item) => {
     // if (item.url) return location.href = item.url
-    router.push({
-        name: 'home',
-        query: {
-            product_id: item.id
+    if (cate.value.flag == 'trade_contract') {
+        router.push({
+            name: 'home',
+            query: {
+                product_id: item.id
+            }
+        })
+    } else {
+        console.error(item)
+        adInfo.value = item
+        // http.adinfo({product_id:item.id}).then(res => {
+        //     console.error(res)
+        //     adInfo.value = res || {}
+        // })
+        if (item.url) {
+            window.open(item.url)
+        } else {
+            showAd.value = true
         }
-    })
+    }
+    
 }
 const openItem = (item) => {
     money.value = ''
@@ -72,7 +118,9 @@ const confirm = () => {
         if (res.code) {
             showToast(res.msg || _t('169'))
             store.dispatch('updateUser')
-                http.product().then(res2 => {
+                http.product({
+                    category_id: cate.value.id
+                }).then(res2 => {
                     if (!res2) return
                     store.commit('setProducts', res2 || [])
                 })
@@ -93,6 +141,7 @@ http.carousel({type: 0}).then(res => {
 
 const homeData = computed(() => store.state.homeData || {})
 const products = computed(() => store.state.products || [])
+const category = computed(() => store.state.homeData.category || [])
 
 const bulletin = computed(() => {
     let val = ''

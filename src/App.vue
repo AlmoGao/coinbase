@@ -22,16 +22,6 @@ api.indexIndex().then(res => {
   // store.commit('setContract', res.contract)
 })
 
-api.product().then(res => {
-  if (!res) return
-  // const arr = []
-  // res.map(item => {
-  //   if (item.balance > 0) {
-  //     arr.push(item)
-  //   }
-  // })
-  store.commit('setProducts', res || [])
-})
 
 
 onMounted(() => {
